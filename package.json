@@ -1,0 +1,43 @@
+{
+  "name": "raop-rtsp-server",
+  "version": "0.0.0",
+  "description": "A simple RAOP server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "standard"
+  },
+  "author": "Thomas Watson Steen <w@tson.dk> (https://twitter.com/wa7son)",
+  "license": "MIT",
+  "dependencies": {
+    "after-all-results": "^2.0.0",
+    "debug": "^2.2.0",
+    "ipaddr.js": "^1.0.3",
+    "libalac": "^0.1.0",
+    "node-rsa": "^0.2.25",
+    "node-uuid": "^1.4.3",
+    "raop-mdns-server": "*",
+    "readable-stream": "^2.0.2",
+    "rtsp-server": "^1.2.1",
+    "sdp-transform": "^1.4.1"
+  },
+  "devDependencies": {
+    "standard": "^5.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watson/raop-rtsp-server.git"
+  },
+  "keywords": [
+    "raop",
+    "airtunes",
+    "airplay",
+    "rtsp",
+    "server",
+    "audio"
+  ],
+  "bugs": {
+    "url": "https://github.com/watson/raop-rtsp-server/issues"
+  },
+  "homepage": "https://github.com/watson/raop-rtsp-server"
+}
