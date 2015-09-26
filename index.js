@@ -2,7 +2,6 @@
 
 var util = require('util')
 var dgram = require('dgram')
-var crypto = require('crypto')
 var afterAll = require('after-all-results')
 var rtsp = require('rtsp-server')
 var mdns = require('raop-mdns-server')
@@ -11,6 +10,7 @@ var alac = require('libalac')
 var auth = require('./lib/auth')
 var sessions = require('./lib/sessions')
 var rsa = require('./lib/rsa')
+var aes = require('./lib/aes')
 var SequenceStream = require('./lib/sequence-stream')
 var debug = require('./lib/debug')
 var pkg = require('./package')
@@ -231,7 +231,7 @@ function startRTPServer (session, uri, cb) {
 
   server.on('message', function (msg, rinfo) {
     var seq = msg.readUInt16BE(2)
-    var body = decode_aes(msg)
+    var body = aes(msg, conf.aeskey, conf.aesiv)
     conf.alac_dec.packets(body.length)
     rtpStream.add(seq, body)
   })
@@ -242,30 +242,6 @@ function startRTPServer (session, uri, cb) {
     debug('RTP server listening on port %s', port)
     cb(null, port)
   })
-
-  function decode_aes (data) {
-    var size = data.length - 12
-    var tmp = new Buffer(16)
-    var out = new Buffer(size)
-    var remainder = size % 16
-    var encLength = size - remainder
-
-    // TODO: Can this be moved outside of this function?
-    var decipher = crypto.createDecipheriv('aes-128-cbc', conf.aeskey, conf.aesiv)
-    decipher.setAutoPadding(false)
-
-    for (var i = 0, l = encLength - 16; i <= l; i += 16) {
-      data.copy(tmp, 0, i + 12, i + 12 + 16)
-      decipher.update(tmp).copy(out, i, 0, 16)
-    }
-
-    // TODO: This returns a buffer, but will it ever not be empty and do we even need to call it?
-    if (decipher.final().length) throw new Error('Unexpected ending of AES decryption')
-
-    if (remainder) data.copy(out, size - remainder, size + 12 - remainder, size + 12)
-
-    return out
-  }
 }
 
 function startControlServer (session, uri, cb) {
