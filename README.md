@@ -59,6 +59,17 @@ To run in debug mode (shown here without writing audio data to STDOUT):
 DEBUG=* node index.js
 ```
 
+## Todo's
+
+- Implement proper RTP control server
+- Implement proper timing server
+- Add volume support
+- Implement `PAUSE` RTSP method
+- Implement `SET_PARAMETER` RTSP method
+- Implement `GET_PARAMETER` RTSP method
+- Implement non standard `POST` RTSP method
+- Implement non standard `GET` RTSP method
+
 ## License
 
 MIT
