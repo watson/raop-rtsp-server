@@ -2,7 +2,7 @@
 
 An attempt to create a RAOP (AirTunes) server in Node.js.
 
-*This project is highly work-in-progress - use it at your own risk!*
+**This project is highly work-in-progress - use it at your own risk!**
 
 [![Build status](https://travis-ci.org/watson/raop-rtsp-server.svg?branch=master)](https://travis-ci.org/watson/raop-rtsp-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
