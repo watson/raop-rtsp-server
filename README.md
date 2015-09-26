@@ -70,6 +70,8 @@ DEBUG=* node index.js
 - Implement `GET_PARAMETER` RTSP method
 - Implement non standard `POST` RTSP method
 - Implement non standard `GET` RTSP method
+- Don't use hardcoded ports
+- Support other audio formats than ALAC
 
 ## License
 
