@@ -25,6 +25,7 @@ brew install sox
 ```
 git clone https://github.com/watson/raop-rtsp-server.git
 cd raop-rtsp-server
+npm install
 ```
 
 ## Run
