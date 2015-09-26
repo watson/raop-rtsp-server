@@ -16,9 +16,9 @@
     "libalac": "^0.1.0",
     "node-rsa": "^0.2.25",
     "node-uuid": "^1.4.3",
-    "raop-mdns-server": "*",
+    "raop-mdns-server": "^3.0.0",
     "readable-stream": "^2.0.2",
-    "rtsp-server": "^1.2.1",
+    "rtsp-server": "^1.2.2",
     "sdp-transform": "^1.4.1"
   },
   "devDependencies": {
