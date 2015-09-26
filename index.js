@@ -175,8 +175,7 @@ var methods = {
     var session = sessions.get(req)
 
     session.rtpInfo = splitter(req.headers['rtp-info'])
-    rtpStream._lastSeq = parseInt(session.rtpInfo.seq, 10) - 1
-    debug('setting first audio datagram sequence to %d', rtpStream._lastSeq + 1)
+    session.rtpInfo.seq = parseInt(session.rtpInfo.seq, 10)
 
     res.setHeader('Audio-Latency', 2205) // TODO: Use actual latency instead
     res.end()
@@ -221,13 +220,11 @@ function splitter (str) {
   return result
 }
 
-var rtpStream
-
 function startRTPServer (session, uri, cb) {
   var server = dgram.createSocket('udp4')
   var conf = session.uris[uri]
 
-  rtpStream = new SequenceStream()
+  var rtpStream = new SequenceStream(session)
 
   if (stdout) rtpStream.pipe(conf.alac_dec).pipe(process.stdout)
   else rtpStream.pipe(conf.alac_dec).resume()
