@@ -22,19 +22,25 @@ brew install sox
 
 ## Installation
 
+For standalone usage, run:
+
 ```
-git clone https://github.com/watson/raop-rtsp-server.git
-cd raop-rtsp-server
-npm install
+npm install --global raop-rtsp-server
 ```
 
-## Run
+For programmatic usage, run:
+
+```
+npm install raop-rtsp-server
+```
+
+## CLI usage
 
 Run and redirect output to STDOUT (it's important that you pipe or
 redirect it somewhere safe):
 
 ```
-node index.js --stdout | sox -traw -L -c2 -r44100 -b16 -e signed-integer - -tcoreaudio
+raop-rtsp-server --stdout | sox -traw -L -c2 -r44100 -b16 -e signed-integer - -tcoreaudio
 ```
 
 For `sox` to be able to interpret the raw ALAC audio data, you need to
@@ -57,8 +63,30 @@ example above:
 To run in debug mode (shown here without writing audio data to STDOUT):
 
 ```
-DEBUG=* node index.js
+DEBUG=* raop-rtsp-server
 ```
+
+## Programmatic usage
+
+The module can also be access programmatically:
+
+```js
+var server = require('raop-rtsp-server')
+
+server.sessions.on('new', function (session) {
+  session.on('data', function (chunk) {
+    console.log('received %d audio bytes on session %s', chunk.length, session.id)
+  })
+})
+
+server.start({ name: 'NodeTunes' })
+```
+
+The `server.start()` function takes an optional options object:
+
+- `name` - The name that the RAOP server (this will be shown on your
+  iDevices). Defaults to `raop-rtsp-server`
+- `port` - The port that the server should listen on. Defaults to `5000`
 
 ## Todo's
 

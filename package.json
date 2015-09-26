@@ -7,6 +7,9 @@
     "start": "node index.js",
     "test": "standard"
   },
+  "bin": {
+    "raop-rtsp-server": "bin/raop-rtsp-server.js"
+  },
   "author": "Thomas Watson Steen <w@tson.dk> (https://twitter.com/wa7son)",
   "license": "MIT",
   "dependencies": {
@@ -19,7 +22,8 @@
     "raop-mdns-server": "^3.0.0",
     "readable-stream": "^2.0.2",
     "rtsp-server": "^1.2.2",
-    "sdp-transform": "^1.4.1"
+    "sdp-transform": "^1.4.1",
+    "xtend": "^4.0.0"
   },
   "devDependencies": {
     "standard": "^5.2.1"
