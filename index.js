@@ -3,10 +3,17 @@
 var rtsp = require('rtsp-server')
 var mdns = require('raop-mdns-server')
 var rtspMethods = require('./lib/rtsp-methods')
+var sessions = require('./lib/sessions')
 var debug = require('./lib/debug')
 var pkg = require('./package')
 
+var stdout = process.argv[2] === '--stdout'
 var serverAgent = 'AirTunes/105.1'
+
+sessions.on('new', function (session) {
+  if (stdout) session.pipe(process.stdout)
+  else session.resume()
+})
 
 var server = rtsp.createServer(function (req, res) {
   res.setHeader('Server', serverAgent)
