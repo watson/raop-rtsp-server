@@ -1,24 +1,23 @@
 'use strict'
 
 var util = require('util')
-var dgram = require('dgram')
 var afterAll = require('after-all-results')
 var rtsp = require('rtsp-server')
 var mdns = require('raop-mdns-server')
 var sdp = require('sdp-transform')
 var alac = require('libalac')
+var rtpServer = require('./lib/servers/rtp')
+var rtpControlServer = require('./lib/servers/rtp-control')
+var timingServer = require('./lib/servers/timing')
 var auth = require('./lib/auth')
 var sessions = require('./lib/sessions')
 var rsa = require('./lib/rsa')
-var aes = require('./lib/aes')
-var SequenceStream = require('./lib/sequence-stream')
 var debug = require('./lib/debug')
 var pkg = require('./package')
 
 var SUPPORTED_METHODS = ['ANNOUNCE', 'SETUP', 'RECORD', 'PAUSE', 'FLUSH', 'TEARDOWN', 'OPTIONS', 'GET_PARAMETER', 'SET_PARAMETER', 'POST', 'GET']
 var serverAgent = 'AirTunes/105.1'
 var macAddr
-var stdout = process.argv[2] === '--stdout'
 
 var server = rtsp.createServer(function (req, res) {
   res.setHeader('Server', serverAgent)
@@ -166,9 +165,9 @@ var methods = {
       res.end()
     })
 
-    startRTPServer(session, req.uri, next())
-    startControlServer(session, req.uri, next())
-    startTimingServer(session, req.uri, next())
+    rtpServer.start(session, req.uri, next())
+    rtpControlServer.start(session, req.uri, next())
+    timingServer.start(session, req.uri, next())
   },
 
   record: function (req, res) {
@@ -218,58 +217,4 @@ function splitter (str) {
     result[pair[0]] = pair[1] || true
   })
   return result
-}
-
-function startRTPServer (session, uri, cb) {
-  var server = dgram.createSocket('udp4')
-  var conf = session.uris[uri]
-
-  var rtpStream = new SequenceStream(session)
-
-  if (stdout) rtpStream.pipe(conf.alac_dec).pipe(process.stdout)
-  else rtpStream.pipe(conf.alac_dec).resume()
-
-  server.on('message', function (msg, rinfo) {
-    var seq = msg.readUInt16BE(2)
-    var body = aes(msg, conf.aeskey, conf.aesiv)
-    conf.alac_dec.packets(body.length)
-    rtpStream.add(seq, body)
-  })
-
-  var port = 53561
-  server.bind(port, function () {
-    var port = server.address().port
-    debug('RTP server listening on port %s', port)
-    cb(null, port)
-  })
-}
-
-function startControlServer (session, uri, cb) {
-  var server = dgram.createSocket('udp4')
-
-  server.on('message', function (msg, rinfo) {
-    debug('New RTP control message', msg, rinfo)
-  })
-
-  var port = 63379
-  server.bind(port, function () {
-    var port = server.address().port
-    debug('RTP Control server listening on port %s', port)
-    cb(null, port)
-  })
-}
-
-function startTimingServer (session, uri, cb) {
-  var server = dgram.createSocket('udp4')
-
-  server.on('message', function (msg, rinfo) {
-    debug('New RTP timing message', msg, rinfo)
-  })
-
-  var port = 50607
-  server.bind(port, function () {
-    var port = server.address().port
-    debug('RTP Timing server listening on port %s', port)
-    cb(null, port)
-  })
 }
