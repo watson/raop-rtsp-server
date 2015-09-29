@@ -9,9 +9,10 @@ An attempt to create a RAOP (AirTunes) server in Node.js.
 
 ## Prerequisites
 
-This server outputs raw ALAC (Apple Lossless) audio in STDOUT, which not
-that many programs know how to play back. The only piece of software
-that I've found to be up to the job is
+This server outputs raw [PCM
+audio](https://en.wikipedia.org/wiki/Pulse-code_modulation) in STDOUT,
+which not that many programs know how to play back. The best piece of
+software that I've found to be up to the job is
 [sox](http://sox.sourceforge.net).
 
 Install via Homebrew:
@@ -19,6 +20,8 @@ Install via Homebrew:
 ```
 brew install sox
 ```
+
+FFmpeg can also parse PCM audio if you like that program better.
 
 ## Installation
 
