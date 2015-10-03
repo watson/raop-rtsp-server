@@ -120,7 +120,6 @@ represents mute.
 
 - Implement proper RTP control server
 - Implement proper timing server
-- Add volume support
 - Implement `PAUSE` RTSP method
 - Implement `GET_PARAMETER` RTSP method
 - Implement non standard `POST` RTSP method
