@@ -91,13 +91,37 @@ The `server.start()` function takes an optional options object:
   iDevices). Defaults to `raop-rtsp-server`
 - `port` - The port that the server should listen on. Defaults to `5000`
 
+### Session
+
+The `session` object emitted by the `new` event is a readable stream and
+will output raw PCM audio data.
+
+#### Properties
+
+- `volume` - A float between 0 and 1 representing the current volume
+  level (0 being muted and 1 being full volume)
+- `volumeDb` - A float value representing the audio attenuation in dB.
+  It ranges from `-30` (lowest) to `0` (highest). A special number
+  `-144` represents mute.
+
+#### Events
+
+Besides the normal readable stream API, the session also emits the
+following events:
+
+##### `volume`
+
+Emitted when ever the client changes the volume. The value emitted is
+the volume as a float value representing the audio attenuation in dB. It
+ranges from `-30` (lowest) to `0` (highest). A special number `-144`
+represents mute.
+
 ## Todo's
 
 - Implement proper RTP control server
 - Implement proper timing server
 - Add volume support
 - Implement `PAUSE` RTSP method
-- Implement `SET_PARAMETER` RTSP method
 - Implement `GET_PARAMETER` RTSP method
 - Implement non standard `POST` RTSP method
 - Implement non standard `GET` RTSP method
