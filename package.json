@@ -8,7 +8,7 @@
     "test": "standard"
   },
   "bin": {
-    "raop-rtsp-server": "bin/raop-rtsp-server.js"
+    "raop-rtsp-server": "bin.js"
   },
   "author": "Thomas Watson Steen <w@tson.dk> (https://twitter.com/wa7son)",
   "license": "MIT",
