@@ -1,6 +1,6 @@
 {
   "name": "raop-rtsp-server",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A simple RAOP server",
   "main": "index.js",
   "scripts": {
@@ -45,7 +45,7 @@
   },
   "homepage": "https://github.com/watson/raop-rtsp-server",
   "coordinates": [
-    55.68771020000001,
-    12.5955807
+    55.68566569999999,
+    12.4813087
   ]
 }
