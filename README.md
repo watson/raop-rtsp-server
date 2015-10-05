@@ -12,13 +12,14 @@ Known compatibility issues:
 [![Build status](https://travis-ci.org/watson/raop-rtsp-server.svg?branch=master)](https://travis-ci.org/watson/raop-rtsp-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-## Prerequisites
+## Tips
 
-This server outputs raw [PCM
-audio](https://en.wikipedia.org/wiki/Pulse-code_modulation) in STDOUT,
-which not that many programs know how to play back. The best piece of
-software that I've found to be up to the job is
-[sox](http://sox.sourceforge.net).
+If using this module to output raw [PCM
+audio](https://en.wikipedia.org/wiki/Pulse-code_modulation) to STDOUT,
+I've found the following useful:
+
+I've tried quite a few different audio players but I've only managed to
+get [sox](http://sox.sourceforge.net) to play back to PCM audio.
 
 Install via Homebrew:
 
@@ -26,7 +27,8 @@ Install via Homebrew:
 brew install sox
 ```
 
-FFmpeg can also parse PCM audio if you like that program better.
+FFmpeg should also be able to parse PCM audio if you like that program
+better.
 
 ## Installation
 
@@ -44,8 +46,15 @@ npm install raop-rtsp-server
 
 ## CLI usage
 
-Run and redirect output to STDOUT (it's important that you pipe or
-redirect it somewhere safe):
+If the `speaker` module can compile on your system, you should just be
+able to start the server without any arguments:
+
+```
+raop-rtsp-server
+```
+
+If you'd rather pipe the PCM audio to another player, you can so so
+using the `--stdout` argument:
 
 ```
 raop-rtsp-server --stdout | sox -traw -L -c2 -r44100 -b16 -e signed-integer - -tcoreaudio
@@ -68,7 +77,9 @@ example above:
 - `-t coreaudio` - Set output type to `coreaudio` (your system might
   differ, but this must always come after your input source)
 
-To run in debug mode (shown here without writing audio data to STDOUT):
+### Debugging
+
+To run in debug mode, use the `DEBUG` environment variable:
 
 ```
 DEBUG=* raop-rtsp-server
