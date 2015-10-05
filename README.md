@@ -126,7 +126,6 @@ represents mute.
 - Implement proper RTP control server
 - Implement proper timing server
 - Implement `PAUSE` RTSP method
-- Implement `GET_PARAMETER` RTSP method
 - Implement non standard `POST` RTSP method
 - Implement non standard `GET` RTSP method
 - Don't use hardcoded ports
