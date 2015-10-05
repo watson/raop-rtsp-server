@@ -26,9 +26,11 @@
     "sdp-transform": "^1.4.1",
     "xtend": "^4.0.0"
   },
-  "devDependencies": {
-    "standard": "^5.2.1",
+  "optionalDependencies": {
     "speaker": "^0.2.6"
+  },
+  "devDependencies": {
+    "standard": "^5.2.1"
   },
   "repository": {
     "type": "git",
