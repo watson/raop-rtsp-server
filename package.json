@@ -1,6 +1,6 @@
 {
   "name": "raop-rtsp-server",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A simple RAOP server",
   "main": "index.js",
   "scripts": {
