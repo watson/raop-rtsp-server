@@ -30,8 +30,8 @@ exports.start = function (opts) {
   })
 
   server.listen(opts.port, function () {
-    var port = server.address().port
-    debug('RAOP RTSP server listening on port %d', port)
+    var addr = server.address()
+    debug('RAOP RTSP server listening', addr)
 
     var txt = {
       txtvers: '1',
@@ -52,7 +52,7 @@ exports.start = function (opts) {
       sf: '0x0'
     }
 
-    mdns({ name: opts.name, port: port, txt: txt, mac: global._raopMacAddr }, function (err, result) {
+    mdns({ name: opts.name, port: addr.port, txt: txt, mac: global._raopMacAddr }, function (err, result) {
       if (err) throw err
     })
   })
