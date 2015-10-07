@@ -35,7 +35,7 @@ able to start the server without any arguments:
 raop-rtsp-server
 ```
 
-If you'd rather pipe the PCM audio to another player, you can so so
+If you'd rather pipe the PCM audio to another player, you can do so
 using the `--stdout` argument:
 
 ```
