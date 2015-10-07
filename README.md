@@ -132,16 +132,6 @@ the volume as a float value representing the audio attenuation in dB. It
 ranges from `-30` (lowest) to `0` (highest). A special number `-144`
 represents mute.
 
-## Todo's
-
-- Implement proper RTP control server
-- Implement proper timing server
-- Implement `PAUSE` RTSP method
-- Implement non standard `POST` RTSP method
-- Implement non standard `GET` RTSP method
-- Don't use hardcoded ports
-- Support other audio formats than ALAC
-
 ## License
 
 MIT
