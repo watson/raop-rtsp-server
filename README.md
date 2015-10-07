@@ -12,24 +12,6 @@ Known compatibility issues:
 [![Build status](https://travis-ci.org/watson/raop-rtsp-server.svg?branch=master)](https://travis-ci.org/watson/raop-rtsp-server)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-## Tips
-
-If using this module to output raw [PCM
-audio](https://en.wikipedia.org/wiki/Pulse-code_modulation) to STDOUT,
-I've found the following useful:
-
-I've tried quite a few different audio players but I've only managed to
-get [sox](http://sox.sourceforge.net) to play back to PCM audio.
-
-Install via Homebrew:
-
-```
-brew install sox
-```
-
-FFmpeg should also be able to parse PCM audio if you like that program
-better.
-
 ## Installation
 
 For standalone usage, run:
@@ -131,6 +113,24 @@ Emitted when ever the client changes the volume. The value emitted is
 the volume as a float value representing the audio attenuation in dB. It
 ranges from `-30` (lowest) to `0` (highest). A special number `-144`
 represents mute.
+
+## Tips
+
+If using this module to output raw [PCM
+audio](https://en.wikipedia.org/wiki/Pulse-code_modulation) to STDOUT,
+I've found the following useful:
+
+I've tried quite a few different audio players but I've only managed to
+get [sox](http://sox.sourceforge.net) to play back to PCM audio.
+
+Install via Homebrew:
+
+```
+brew install sox
+```
+
+FFmpeg should also be able to parse PCM audio if you like that program
+better.
 
 ## License
 
