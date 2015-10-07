@@ -28,8 +28,9 @@ npm install raop-rtsp-server
 
 ## CLI usage
 
-If the `speaker` module can compile on your system, you should just be
-able to start the server without any arguments:
+If the `speaker` module can compile on your system (comes bundled with
+this module), you should just be able to start the server without any
+arguments:
 
 ```
 raop-rtsp-server
@@ -42,22 +43,7 @@ using the `--stdout` argument:
 raop-rtsp-server --stdout | sox -traw -L -c2 -r44100 -b16 -e signed-integer - -tcoreaudio
 ```
 
-For `sox` to be able to interpret the raw ALAC audio data, you need to
-help it a little. These are the command line arguments given in the
-example above:
-
-- `-t raw` - Set input type to `raw`. This means that sox shouldn't
-  expect any headers in the data - just raw audio
-- `-L` - The audio data is formatted using native byte ordering, which
-  is little endian on Intel CPU's. Your system might use `-B` for big
-  endian
-- `-c 2` - Use 2 audio channels
-- `-r 44100` - Use a 44.1khz sample rate
-- `-b 16` - Use a bit-depth of 16
-- `-e signed-integer` - The audio encoding type
-- `-` - Set input source to STDIN
-- `-t coreaudio` - Set output type to `coreaudio` (your system might
-  differ, but this must always come after your input source)
+_See the *Tips* section below on how to install and use sox_
 
 ### Debugging
 
@@ -65,6 +51,12 @@ To run in debug mode, use the `DEBUG` environment variable:
 
 ```
 DEBUG=* raop-rtsp-server
+```
+
+Or the less chatty:
+
+```
+DEBUG=raop-rtsp-server raop-rtsp-server
 ```
 
 ## Programmatic usage
@@ -77,6 +69,10 @@ var server = require('raop-rtsp-server')
 server.sessions.on('new', function (session) {
   session.on('data', function (chunk) {
     console.log('received %d audio bytes on session %s', chunk.length, session.id)
+  })
+
+  session.on('volume', function (volume) {
+    console.log('the client changed the volume to %d dB', volume)
   })
 })
 
@@ -128,6 +124,23 @@ Install via Homebrew:
 ```
 brew install sox
 ```
+
+For `sox` to be able to interpret the raw ALAC audio data, you need to
+help it a little. These are the command line arguments given in the
+example above:
+
+- `-t raw` - Set input type to `raw`. This means that sox shouldn't
+  expect any headers in the data - just raw audio
+- `-L` - The audio data is formatted using native byte ordering, which
+  is little endian on Intel CPU's. Your system might use `-B` for big
+  endian
+- `-c 2` - Use 2 audio channels
+- `-r 44100` - Use a 44.1khz sample rate
+- `-b 16` - Use a bit-depth of 16
+- `-e signed-integer` - The audio encoding type
+- `-` - Set input source to STDIN
+- `-t coreaudio` - Set output type to `coreaudio` (your system might
+  differ, but this must always come after your input source)
 
 FFmpeg should also be able to parse PCM audio if you like that program
 better.
